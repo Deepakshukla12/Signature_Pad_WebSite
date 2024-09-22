@@ -82,8 +82,12 @@ const handlePointerDown = (event) => {
 const handlePointerMove = (event) => {
     if (!writingMode) return;
     const [positionX, positionY] = getTargetPosition(event);
-    ctx.lineTo(positionX, positionY);
-    ctx.stroke();
+    
+    // Introduce a delay to make drawing appear slower
+    setTimeout(() => {
+        ctx.lineTo(positionX, positionY);
+        ctx.stroke();
+    }, 30); // Adjust the delay time (in milliseconds) as needed
 };
 
 
