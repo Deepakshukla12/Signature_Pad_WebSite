@@ -8,6 +8,10 @@ let writingMode = false;
 let selectedColor = '#000000'; 
 const colorPicker = document.getElementById('colorPicker');
 
+// Adjust the canvas size dynamically
+canvas.width = canvas.offsetWidth;
+canvas.height = 300; // Set desired height
+
 colorPicker.addEventListener('input', (event) => {
     selectedColor = event.target.value;
     ctx.strokeStyle = selectedColor;
@@ -48,10 +52,10 @@ form.addEventListener('submit', (event) => {
     form.appendChild(combinedImage);
 });
 
-
 // Clear canvas function
 const clearPad = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.beginPath(); // Clear paths for a fresh start
 };
 
 // Clear button event
@@ -69,27 +73,24 @@ const getTargetPosition = (event) => {
 
 const handlePointerUp = () => {
     writingMode = false;
+    ctx.beginPath(); // End the current drawing path cleanly
 };
 
 const handlePointerDown = (event) => {
     writingMode = true;
-    ctx.lineWidth = 0.6; // Set line width here
-    ctx.beginPath();
     const [positionX, positionY] = getTargetPosition(event);
-    ctx.moveTo(positionX, positionY);
+    ctx.lineWidth = 1.5; // Set line width for smoother experience
+    ctx.strokeStyle = selectedColor; // Ensure color is applied correctly
+    ctx.moveTo(positionX, positionY); // Correctly set the start position
 };
 
 const handlePointerMove = (event) => {
     if (!writingMode) return;
     const [positionX, positionY] = getTargetPosition(event);
-    
-    // Introduce a delay to make drawing appear slower
-    setTimeout(() => {
-        ctx.lineTo(positionX, positionY);
-        ctx.stroke();
-    }, 30); // Adjust the delay time (in milliseconds) as needed
+    ctx.lineTo(positionX, positionY);
+    ctx.stroke();
+    ctx.moveTo(positionX, positionY); // Ensure the path follows the pointer exactly
 };
-
 
 // Download image button event
 const downloadButton = document.querySelector('.download-button');
@@ -146,9 +147,8 @@ downloadPdfButton.addEventListener('click', () => {
     pdf.save('signature_with_annotation.pdf'); // Save the PDF
 });
 
-
-// Setup canvas properties
-ctx.lineWidth = 3;
+// Setup canvas properties for smoother drawing
+ctx.lineWidth = 1.5; // Thinner stroke for smoother signature
 ctx.lineJoin = ctx.lineCap = 'round';
 ctx.strokeStyle = selectedColor;
 
@@ -176,3 +176,15 @@ canvas.addEventListener('touchmove', (event) => {
     preventDefault(event);
     handlePointerMove(event.touches[0]);
 }, { passive: false });
+
+// Resize canvas to fit the window size and maintain smooth writing experience
+window.addEventListener('resize', () => {
+    const tempCanvas = document.createElement('canvas');
+    tempCanvas.width = canvas.width;
+    tempCanvas.height = canvas.height;
+    tempCanvas.getContext('2d').drawImage(canvas, 0, 0);
+
+    canvas.width = canvas.offsetWidth;
+    canvas.height = 300; // Reset to original height or set dynamically
+    ctx.drawImage(tempCanvas, 0, 0);
+});
