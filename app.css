@@ -1,0 +1,252 @@
+:root {
+    --primary-color: black; /* Bright primary color */
+    --secondary-color: #F8F9FA; /* Light background color */
+    --canvas-border: #CCCCCC; /* Soft canvas border color */
+}
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: var(--secondary-color);
+    line-height: 1.6;
+    padding: 1rem;
+    overflow-y: scroll; /* Allow vertical scrolling by default */
+}
+.signature-heading {
+    border: 2px solid var(--primary-color);
+    border-radius: 15px;
+    text-decoration: underline;
+    display: flex;
+    justify-content: space-between; /* Space between text and image */
+    align-items: center; /* Center vertically */
+    padding: 1.5rem;
+    text-align: center; /* Center text */
+    background-color: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(135deg, #f5f5f5, #e0e0e0);
+}
+.signature-heading:hover {
+    background-color: #f0f0f0; /* Light background on hover */
+    transform: scale(1.02); /* Slightly enlarge */
+    transition: transform 0.3s ease, background-color 0.3s ease; /* Smooth transition */
+}
+
+
+.signature-heading h1 {
+    margin: 0; /* Remove default margin */
+    flex: 1; /* Allow h1 to take available space */
+    padding-left: 8rem; /* Add padding to shift it slightly right */
+}
+
+.image-container {
+    display: flex;
+    justify-content: flex-end; /* Align the image to the right */
+    margin-top: 1rem; /* Space above the image */
+}
+
+.image-container img {
+    max-width: 100%; /* Make the image responsive */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 10px; /* Optional: round corners if desired */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional: subtle shadow for depth */
+}
+.signature-pad-form {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0.5% 1%;
+    text-align: center;
+    border: solid;
+    border-radius: 20px;
+    border-width: 4px;
+}
+
+.signature-pad {
+    border: 2px solid var(--primary-color);
+    border-radius: 10px;
+    display: block;
+    margin: 0 auto;
+    width: 90%;
+    max-width: 600px;
+    height: 30vh; /* Responsive height */
+    box-sizing: border-box;
+    background-color: #fff; /* Canvas background */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+
+    background-color: #b7b4b1;
+}
+
+.signature-pad:hover {
+    
+    transform: scale(1.02); /* Slightly enlarge */
+    transition: transform 0.3s ease, background-color 0.3s ease; /* Smooth transition */
+}
+
+
+/* Prevent body scrolling while using the signature pad */
+body {
+    overflow: hidden; /* Optional: prevent scrolling on the body */
+}
+.submit-button, .clear-button {
+    width: 83%; /* Increase width for better appearance */
+    margin-top: 0; /* Remove top margin */
+    margin-bottom: 0; /* Remove bottom margin */
+}
+
+.submit-button {
+    margin-bottom: 0.5rem; /* Add a small bottom margin for space */
+}
+
+/* Adjust for other buttons if needed */
+.download-buttons button {
+    margin: 0 0.5rem; /* Reduce space between download buttons */
+}
+
+
+.submit-button, .clear-button, .download-button, .download-pdf-button {
+    background-color: var(--primary-color);
+    border: none;
+    padding: 0.75rem 1rem;
+    margin-top: 0rem;
+    margin-bottom: 0%;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 1.1rem;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 0.3rem auto; /* Center buttons with margin */
+}
+.submit-button {
+    margin-bottom: 0.2rem; /* Adjust the margin to reduce space */
+}
+
+.clear-button {
+    margin-top: 0.2rem; /* Adjust the margin to reduce space */
+}
+
+
+.Annotation {
+    display: flex;
+    align-items: center; /* Vertically center the items */
+    margin: 1rem auto; /* Center the entire container */
+}
+
+.annotation-label {
+    margin-right: 1rem; /* Space between label and input */
+    font-weight: bold; /* Keep bold style */
+}
+
+#textAnnotation {
+    padding: 0.5rem;
+    border-radius: 5px;
+    border: 1px solid var(--canvas-border);
+    width: 60%; /* Adjust width as needed */
+    border: solid;
+    text-align: center;
+    flex: 1; /* Allow the input to grow and fill available space */
+}
+
+
+/* Adjust width for download buttons */
+.download-buttons {
+    display: flex; /* Align buttons in a row */
+    justify-content: center; /* Center the buttons */
+    margin-top: 0rem; /* Spacing above */
+}
+
+.download-buttons button {
+    width: 40%; /* Set to 40% of the parent width */
+    margin: 0 1rem; /* Space between buttons */
+}
+
+/* Maintain hover and active states */
+.download-button:hover, 
+.download-pdf-button:hover {
+    background-color: grey; /* Darker shade on hover */
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); /* Enhance shadow on hover */
+    transform: scale(1.02); /* Slightly enlarge on hover */
+}
+
+.download-button:active, 
+.download-pdf-button:active {
+    transform: scale(0.95); /* Slightly scale down on active */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Reduce shadow on click */
+}
+
+.download-button, 
+.download-pdf-button {
+    transition: transform 0.3s ease, background-color 0.3s ease; /* Smooth transition for hover and active states */
+}
+
+.submit-button:hover, 
+.clear-button:hover {
+    background-color: grey; /* Darker shade on hover */
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); /* Enhance shadow on hover */
+
+    transform: scale(1.02); /* Slightly enlarge */
+    transition: transform 0.3s ease, background-color 0.3s ease; /* Smooth transition */
+}
+
+.signature-info {
+    font-size: 1.1rem;
+    margin: 1rem 0;
+    color: #333; /* Darker text color */
+}
+
+/* Image Container */
+.image-container {
+    margin-top: 2rem; /* Space above the image */
+}
+
+.image-container img {
+    max-width: 100%; /* Responsive image */
+    height: auto; /* Maintain aspect ratio */
+    border: 2px solid var(--canvas-border);
+    border-radius: 10px; /* Round corners for a polished look */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+/* Responsive styles */
+@media (max-width: 600px) {
+    body {
+        overflow-y: hidden; /* Disable scrolling on mobile devices */
+    }
+
+    .signature-pad {
+        height: 150px; /* Reduce canvas height for mobile */
+    }
+
+    .signature-heading {
+        font-size: 1.5rem; /* Smaller heading on mobile */
+    }
+
+    .submit-button, .clear-button, .download-buttons button {
+        font-size: 1rem; /* Adjust font size for better readability */
+        width: auto; /* Auto width for mobile */
+    }
+}
+.signature-pad {
+    width: 95%; /* Increase width for laptop and large screens */
+    max-width: 750px; /* Set maximum width */
+    height: 50vh; /* Larger height */
+}
+
+@media (max-width: 600px) {
+    .signature-pad {
+        width: 90%; /* Increase width for mobile */
+        height: 40vh; /* Larger height for mobile */
+    }
+}
+
+@media (min-width: 601px) {
+    .signature-pad {
+        width: 95%; /* Increase width for larger devices */
+        height: 50vh; /* Larger height for laptop */
+    }
+}
+
+
+@media (min-width: 601px) {
+    body {
+        overflow-y: auto; /* Enable scrolling on larger devices */
+    }
+}

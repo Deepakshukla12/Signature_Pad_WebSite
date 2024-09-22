@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signature Pad</title>
+    <link rel="stylesheet" href="app.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <form class="signature-pad-form">
+        <div class="signature-heading">
+            <h1>Signature Pad</h1>
+            <img src="digital.png" alt="###" height="100" width="200">
+        </div>
+        <p class="signature-info">
+           <b> Welcome to the Signature Pad! Transform your signature into art with our easy-to-use interface. Draw, customize colors and fonts, and download your creation as a PDF. Make your mark stand out—let your signature shine!
+        </b>
+        </p>
+        <div class="Annotation">
+            <strong class="annotation-label">Add Annotation:</strong>
+            <input type="text" id="textAnnotation" placeholder="Enter your name or anything to attach with your signature." />
+        </div>
+        
+        
+        
+        <div class="flex-container">
+            <div class="signature-area">
+                <p><strong><h2>Please Sign Here</h2></strong></p>
+                <canvas class="signature-pad"></canvas>
+                <p>
+                    <strong>Choose Ink Color:</strong>
+                    <input type="color" id="colorPicker" value="#000000">
+                </p>
+                <p>
+                    <button class="submit-button" type="submit">SUBMIT</button>
+                </p>
+                <p>
+                    <button class="clear-button" type="button">RESET</button>
+                </p>
+                <p class="download-buttons">
+                    <button class="download-button" type="button">DOWNLOAD IMAGE</button>
+                    <button class="download-pdf-button" type="button">DOWNLOAD PDF</button>
+                </p>
+            </div>
+        </div>
+    </form>
+    
+    <script src="app.js"></script>
+</body>
+</html>
