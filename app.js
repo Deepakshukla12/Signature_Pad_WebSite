@@ -13,19 +13,6 @@ colorPicker.addEventListener('input', (event) => {
     ctx.strokeStyle = selectedColor;
 });
 
-
-// // Form submission logic
-// form.addEventListener('submit', (event) => {
-//     event.preventDefault();
-//     const imageURL = canvas.toDataURL();
-//     const image = document.createElement('img');
-//     image.src = imageURL;
-//     image.height = canvas.height;
-//     image.width = canvas.width;
-//     image.style.display = 'block';
-//     form.appendChild(image);
-// });
-
 form.addEventListener('submit', (event) => {
     event.preventDefault();
     const imageURL = canvas.toDataURL();
@@ -86,7 +73,7 @@ const handlePointerUp = () => {
 
 const handlePointerDown = (event) => {
     writingMode = true;
-    ctx.lineWidth = 1; // Set line width here
+    ctx.lineWidth = 0.6; // Set line width here
     ctx.beginPath();
     const [positionX, positionY] = getTargetPosition(event);
     ctx.moveTo(positionX, positionY);
@@ -98,29 +85,6 @@ const handlePointerMove = (event) => {
     ctx.lineTo(positionX, positionY);
     ctx.stroke();
 };
-
-// // Download image button event
-// const downloadButton = document.querySelector('.download-button');
-// downloadButton.addEventListener('click', () => {
-//     const imageURL = canvas.toDataURL('image/png');
-//     const link = document.createElement('a');
-//     link.href = imageURL;
-//     link.download = 'signature.png'; 
-//     document.body.appendChild(link);
-//     link.click();
-//     document.body.removeChild(link);
-// });
-
-// // Download PDF button event
-// const downloadPdfButton = document.querySelector('.download-pdf-button');
-// downloadPdfButton.addEventListener('click', () => {
-//     const imageURL = canvas.toDataURL('image/png');
-//     const { jsPDF } = window.jspdf;
-//     const pdf = new jsPDF();
-
-//     pdf.addImage(imageURL, 'PNG', 10, 10, 190, 100); // Adjust dimensions as needed
-//     pdf.save('signature.pdf'); // Save the PDF
-// });
 
 
 // Download image button event
@@ -177,9 +141,6 @@ downloadPdfButton.addEventListener('click', () => {
     pdf.addImage(imageURL, 'PNG', 10, 10, 190, 100); // Adjust dimensions as needed
     pdf.save('signature_with_annotation.pdf'); // Save the PDF
 });
-
-
-
 
 
 // Setup canvas properties
