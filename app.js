@@ -24,13 +24,6 @@ form.addEventListener('submit', (event) => {
     // Get the text annotation
     const annotation = document.getElementById('textAnnotation').value;
 
-    // Create an image element for the signature
-    const image = document.createElement('img');
-    image.src = imageURL;
-    image.height = canvas.height;
-    image.width = canvas.width;
-    image.style.display = 'block';
-    
     // Create a new canvas to draw the signature and annotation together
     const combinedCanvas = document.createElement('canvas');
     combinedCanvas.width = canvas.width;
@@ -43,7 +36,7 @@ form.addEventListener('submit', (event) => {
     // Add the annotation
     combinedCtx.fillStyle = 'black'; // Change to desired color
     combinedCtx.font = '16px Arial'; // Adjust font size and style as needed
-    combinedCtx.fillText(annotation, 10, canvas.height + 20); // Position the text
+    combinedCtx.fillText(annotation, 10, canvas.height); // Adjusted Y position to canvas.height
 
     // Append the combined image
     const combinedImage = document.createElement('img');
@@ -109,7 +102,7 @@ downloadButton.addEventListener('click', () => {
     // Add the annotation
     combinedCtx.fillStyle = 'black'; // Change to desired color
     combinedCtx.font = '16px Arial'; // Adjust font size and style as needed
-    combinedCtx.fillText(annotation, 10, canvas.height + 20); // Position the text
+    combinedCtx.fillText(annotation, 10, canvas.height); // Adjusted Y position to canvas.height
 
     const imageURL = combinedCanvas.toDataURL('image/png');
     const link = document.createElement('a');
@@ -137,7 +130,7 @@ downloadPdfButton.addEventListener('click', () => {
     // Add the annotation
     combinedCtx.fillStyle = 'black'; // Change to desired color
     combinedCtx.font = '16px Arial'; // Adjust font size and style as needed
-    combinedCtx.fillText(annotation, 10, canvas.height + 20); // Position the text
+    combinedCtx.fillText(annotation, 10, canvas.height); // Adjusted Y position to canvas.height
 
     const imageURL = combinedCanvas.toDataURL('image/png');
     const { jsPDF } = window.jspdf;
