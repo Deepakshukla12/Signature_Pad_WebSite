@@ -3,6 +3,7 @@
 Signature Pad with Annotation and PDF Export
 This project is a web-based Signature Pad that allows users to create, customize, and download their signatures with added annotations. The tool is mobile-friendly and provides features such as color selection, cropping the signature to its drawn area, and the ability to export signatures as PNG images or PDF files.
 
+
 Features:
 
 Smooth Signature Drawing: Users can draw their signatures with a smooth writing experience on both desktop and mobile devices.
@@ -18,6 +19,7 @@ Download Options: Export the signature along with annotations as either a PNG im
 Mobile Support: Supports touch events for mobile devices, allowing users to sign using their phones or tablets.
 
 
+
 Tech Stack:
 HTML5 Canvas: For drawing the signature.
 
@@ -26,6 +28,7 @@ CSS3: For styling the layout and making the interface mobile-friendly.
 JavaScript: To handle the drawing logic, color selection, annotation addition, and image/PDF generation.
 
 jsPDF: For exporting the signature and annotation as a PDF file.
+
 
 
 How to Use:
