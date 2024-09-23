@@ -1,6 +1,3 @@
-# Signature Pad Website
-
----
 
 # Signature Pad Website
 
