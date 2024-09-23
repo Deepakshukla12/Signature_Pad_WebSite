@@ -250,3 +250,29 @@ body {
         overflow-y: auto; /* Enable scrolling on larger devices */
     }
 }
+.undo-redo-buttons button {
+    background-color: var(--primary-color);
+    border: none;
+    padding: 0.75rem 1rem;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 1.1rem;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 0.3rem auto; /* Center buttons with margin */
+    width: 40%; /* Set to 40% of the parent width */
+    margin: 0 1rem; /* Space between buttons */
+}
+
+.undo-redo-buttons button:hover {
+    background-color: grey; /* Darker shade on hover */
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); /* Enhance shadow on hover */
+    transform: scale(1.02); /* Slightly enlarge on hover */
+}
+
+.undo-redo-buttons button:active {
+    transform: scale(0.95); /* Slightly scale down on active */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Reduce shadow on click */
+}
