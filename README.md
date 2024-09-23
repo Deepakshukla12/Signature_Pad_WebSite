@@ -44,4 +44,3 @@ This project is a web-based Signature Pad that allows users to create, customize
 
 ---
 
-Feel free to add any additional information, such as installation instructions or links to a live demo, to make your README even more informative!
