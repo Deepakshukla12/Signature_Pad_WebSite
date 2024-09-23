@@ -22,8 +22,6 @@
             <input type="text" id="textAnnotation" placeholder="Enter your name or anything to attach with your signature." />
         </div>
         
-        
-        
         <div class="flex-container">
             <div class="signature-area">
                 <p><strong><h2>Please Sign Here</h2></strong></p>
@@ -32,6 +30,11 @@
                     <strong>Choose Ink Color:</strong>
                     <input type="color" id="colorPicker" value="#000000">
                 </p>
+                <p class="undo-redo-buttons">
+                    <button class="undo-button" type="button">UNDO</button>
+                    <button class="redo-button" type="button">REDO</button>
+                </p>
+                
                 <p>
                     <button class="submit-button" type="submit">SUBMIT</button>
                 </p>
@@ -47,5 +50,15 @@
     </form>
     
     <script src="app.js"></script>
+    <script>
+        document.querySelector('.submit-button').addEventListener('click', function() {
+            // Target the signature pad canvas
+            const signaturePad = document.querySelector('.signature-pad');
+            
+            // Reduce the size of the signature pad
+            signaturePad.style.width = '80%';   // Reduce width to 80% 
+            signaturePad.style.height = '20vh'; // Reduce height to 20vh
+        });
+    </script>
 </body>
 </html>
