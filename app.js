@@ -75,7 +75,7 @@ const handlePointerUp = () => {
 const handlePointerDown = (event) => {
     writingMode = true;
     const [positionX, positionY] = getTargetPosition(event);
-    ctx.lineWidth = 1.5; // Set line width for smoother experience
+    ctx.lineWidth = 2.2; // Set line width for smoother experience
     ctx.strokeStyle = selectedColor; // Ensure color is applied correctly
     ctx.moveTo(positionX, positionY); // Correctly set the start position
 };
