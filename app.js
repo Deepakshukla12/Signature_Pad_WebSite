@@ -36,6 +36,9 @@ form.addEventListener('submit', (event) => {
     // Add the annotation
     combinedCtx.fillStyle = 'black'; // Change to desired color
     combinedCtx.font = '16px Arial'; // Adjust font size and style as needed
+    const textWidth = combinedCtx.measureText(annotation).width; // Get the text width
+    const xPosition = (combinedCanvas.width - textWidth) / 2; // Calculate centered x position
+    const yPosition = canvas.height - 20; // Position near the bottom
     combinedCtx.fillText(annotation, 10, canvas.height); // Adjusted Y position to canvas.height
 
     // Append the combined image
@@ -180,4 +183,51 @@ window.addEventListener('resize', () => {
     canvas.width = canvas.offsetWidth;
     canvas.height = 300; // Reset to original height or set dynamically
     ctx.drawImage(tempCanvas, 0, 0);
+});
+const undoButton = document.querySelector('.undo-button');
+const redoButton = document.querySelector('.redo-button');
+
+let undoStack = [];
+let redoStack = [];
+
+// Save current canvas state
+const saveState = (stack, canvas, keepRedo = false) => {
+    if (!keepRedo) {
+        redoStack = []; // Clear redo stack when new action is performed
+    }
+    stack.push(canvas.toDataURL());
+};
+
+// Restore canvas to a previous state
+const restoreState = (canvas, ctx, stack) => {
+    if (stack.length) {
+        const canvasPic = new Image();
+        const state = stack.pop();
+        canvasPic.src = state;
+        canvasPic.onload = () => ctx.drawImage(canvasPic, 0, 0);
+    }
+};
+
+// On pointer down, save the state for undo
+canvas.addEventListener('pointerdown', () => {
+    saveState(undoStack, canvas);
+    writingMode = true;
+});
+
+// Undo button functionality
+undoButton.addEventListener('click', () => {
+    if (undoStack.length > 0) {
+        saveState(redoStack, canvas, true); // Save current state to redo stack
+        clearPad(); // Clear current canvas
+        restoreState(canvas, ctx, undoStack); // Restore the previous state
+    }
+});
+
+// Redo button functionality
+redoButton.addEventListener('click', () => {
+    if (redoStack.length > 0) {
+        saveState(undoStack, canvas, true); // Save current state to undo stack
+        clearPad(); // Clear current canvas
+        restoreState(canvas, ctx, redoStack); // Restore the next state from redo
+    }
 });
