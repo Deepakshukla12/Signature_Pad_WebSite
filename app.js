@@ -4,13 +4,11 @@ const clearButton = document.querySelector('.clear-button');
 const ctx = canvas.getContext('2d');
 let writingMode = false;
 
-// Set default color
 let selectedColor = '#000000'; 
 const colorPicker = document.getElementById('colorPicker');
 
-// Adjust the canvas size dynamically
 canvas.width = canvas.offsetWidth;
-canvas.height = 300; // Set desired height
+canvas.height = 300; 
 
 colorPicker.addEventListener('input', (event) => {
     selectedColor = event.target.value;
@@ -20,46 +18,36 @@ colorPicker.addEventListener('input', (event) => {
 form.addEventListener('submit', (event) => {
     event.preventDefault();
     const imageURL = canvas.toDataURL();
-    
-    // Get the text annotation
     const annotation = document.getElementById('textAnnotation').value;
 
-    // Create a new canvas to draw the signature and annotation together
     const combinedCanvas = document.createElement('canvas');
     combinedCanvas.width = canvas.width;
-    combinedCanvas.height = canvas.height + 30; // Add space for the annotation
+    combinedCanvas.height = canvas.height + 30; 
     const combinedCtx = combinedCanvas.getContext('2d');
 
-    // Draw the signature
     combinedCtx.drawImage(canvas, 0, 0);
+    combinedCtx.fillStyle = 'black'; 
+    combinedCtx.font = '16px Arial'; 
+    const textWidth = combinedCtx.measureText(annotation).width; 
+    const xPosition = (combinedCanvas.width - textWidth) / 2; 
+    const yPosition = canvas.height - 20; 
+    combinedCtx.fillText(annotation, 10, canvas.height); 
 
-    // Add the annotation
-    combinedCtx.fillStyle = 'black'; // Change to desired color
-    combinedCtx.font = '16px Arial'; // Adjust font size and style as needed
-    const textWidth = combinedCtx.measureText(annotation).width; // Get the text width
-    const xPosition = (combinedCanvas.width - textWidth) / 2; // Calculate centered x position
-    const yPosition = canvas.height - 20; // Position near the bottom
-    combinedCtx.fillText(annotation, 10, canvas.height); // Adjusted Y position to canvas.height
-
-    // Append the combined image
     const combinedImage = document.createElement('img');
     combinedImage.src = combinedCanvas.toDataURL();
     combinedImage.style.display = 'block';
     form.appendChild(combinedImage);
 });
 
-// Clear canvas function
 const clearPad = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.beginPath(); // Clear paths for a fresh start
+    ctx.beginPath(); 
 };
 
-// Clear button event
 clearButton.addEventListener('click', () => {
     clearPad();
 });
 
-// Drawing functions
 const getTargetPosition = (event) => {
     const rect = canvas.getBoundingClientRect();
     const positionX = event.clientX - rect.left; 
@@ -69,15 +57,16 @@ const getTargetPosition = (event) => {
 
 const handlePointerUp = () => {
     writingMode = false;
-    ctx.beginPath(); // End the current drawing path cleanly
+    ctx.beginPath(); 
 };
 
 const handlePointerDown = (event) => {
     writingMode = true;
     const [positionX, positionY] = getTargetPosition(event);
-    ctx.lineWidth = 3; // Set line width for smoother experience
-    ctx.strokeStyle = selectedColor; // Ensure color is applied correctly
-    ctx.moveTo(positionX, positionY); // Correctly set the start position
+    ctx.lineWidth = 1.5; // Set line width for better visibility
+    ctx.strokeStyle = selectedColor; 
+    ctx.moveTo(positionX, positionY); 
+    ctx.beginPath(); // Start a new path to avoid connecting lines
 };
 
 const handlePointerMove = (event) => {
@@ -85,7 +74,30 @@ const handlePointerMove = (event) => {
     const [positionX, positionY] = getTargetPosition(event);
     ctx.lineTo(positionX, positionY);
     ctx.stroke();
-    ctx.moveTo(positionX, positionY); // Ensure the path follows the pointer exactly
+    ctx.moveTo(positionX, positionY); 
+};
+
+const throttle = (func, limit) => {
+    let lastFunc;
+    let lastRan;
+    return function(...args) {
+        if (!lastRan) {
+            func.apply(this, args);
+            lastRan = Date.now();
+        } else {
+            clearTimeout(lastFunc);
+            lastFunc = setTimeout(() => {
+                if ((Date.now() - lastRan) >= limit) {
+                    func.apply(this, args);
+                    lastRan = Date.now();
+                }
+            }, limit - (Date.now() - lastRan));
+        }
+    };
+};
+
+const draw = (event) => {
+    handlePointerMove(event);
 };
 
 // Download image button event
@@ -93,19 +105,15 @@ const downloadButton = document.querySelector('.download-button');
 downloadButton.addEventListener('click', () => {
     const annotation = document.getElementById('textAnnotation').value;
 
-    // Create a new canvas to draw the signature and annotation together
     const combinedCanvas = document.createElement('canvas');
     combinedCanvas.width = canvas.width;
-    combinedCanvas.height = canvas.height + 30; // Add space for the annotation
+    combinedCanvas.height = canvas.height + 30; 
     const combinedCtx = combinedCanvas.getContext('2d');
 
-    // Draw the signature
     combinedCtx.drawImage(canvas, 0, 0);
-
-    // Add the annotation
-    combinedCtx.fillStyle = 'black'; // Change to desired color
-    combinedCtx.font = '16px Arial'; // Adjust font size and style as needed
-    combinedCtx.fillText(annotation, 10, canvas.height); // Adjusted Y position to canvas.height
+    combinedCtx.fillStyle = 'black'; 
+    combinedCtx.font = '16px Arial'; 
+    combinedCtx.fillText(annotation, 10, canvas.height); 
 
     const imageURL = combinedCanvas.toDataURL('image/png');
     const link = document.createElement('a');
@@ -121,39 +129,32 @@ const downloadPdfButton = document.querySelector('.download-pdf-button');
 downloadPdfButton.addEventListener('click', () => {
     const annotation = document.getElementById('textAnnotation').value;
 
-    // Create a new canvas to draw the signature and annotation together
     const combinedCanvas = document.createElement('canvas');
     combinedCanvas.width = canvas.width;
-    combinedCanvas.height = canvas.height + 30; // Add space for the annotation
+    combinedCanvas.height = canvas.height + 30; 
     const combinedCtx = combinedCanvas.getContext('2d');
 
-    // Draw the signature
     combinedCtx.drawImage(canvas, 0, 0);
-
-    // Add the annotation
-    combinedCtx.fillStyle = 'black'; // Change to desired color
-    combinedCtx.font = '16px Arial'; // Adjust font size and style as needed
-    combinedCtx.fillText(annotation, 10, canvas.height); // Adjusted Y position to canvas.height
+    combinedCtx.fillStyle = 'black'; 
+    combinedCtx.font = '16px Arial'; 
+    combinedCtx.fillText(annotation, 10, canvas.height); 
 
     const imageURL = combinedCanvas.toDataURL('image/png');
     const { jsPDF } = window.jspdf;
     const pdf = new jsPDF();
 
-    pdf.addImage(imageURL, 'PNG', 10, 10, 190, 100); // Adjust dimensions as needed
-    pdf.save('signature_with_annotation.pdf'); // Save the PDF
+    pdf.addImage(imageURL, 'PNG', 10, 10, 190, 100); 
+    pdf.save('signature_with_annotation.pdf'); 
 });
 
-// Setup canvas properties for smoother drawing
-ctx.lineWidth = 1.5; // Thinner stroke for smoother signature
+ctx.lineWidth = 1.5; 
 ctx.lineJoin = ctx.lineCap = 'round';
 ctx.strokeStyle = selectedColor;
 
-// Event listeners for drawing
 canvas.addEventListener('pointerdown', handlePointerDown, { passive: false });
 canvas.addEventListener('pointerup', handlePointerUp, { passive: false });
-canvas.addEventListener('pointermove', handlePointerMove, { passive: false });
+canvas.addEventListener('pointermove', throttle(draw, 16), { passive: false });
 
-// Touch events for mobile support
 const preventDefault = (event) => {
     event.preventDefault();
 };
@@ -170,10 +171,9 @@ canvas.addEventListener('touchend', (event) => {
 
 canvas.addEventListener('touchmove', (event) => {
     preventDefault(event);
-    handlePointerMove(event.touches[0]);
+    draw(event.touches[0]);
 }, { passive: false });
 
-// Resize canvas to fit the window size and maintain smooth writing experience
 window.addEventListener('resize', () => {
     const tempCanvas = document.createElement('canvas');
     tempCanvas.width = canvas.width;
@@ -181,24 +181,23 @@ window.addEventListener('resize', () => {
     tempCanvas.getContext('2d').drawImage(canvas, 0, 0);
 
     canvas.width = canvas.offsetWidth;
-    canvas.height = 300; // Reset to original height or set dynamically
+    canvas.height = 300; 
     ctx.drawImage(tempCanvas, 0, 0);
 });
+
 const undoButton = document.querySelector('.undo-button');
 const redoButton = document.querySelector('.redo-button');
 
 let undoStack = [];
 let redoStack = [];
 
-// Save current canvas state
 const saveState = (stack, canvas, keepRedo = false) => {
     if (!keepRedo) {
-        redoStack = []; // Clear redo stack when new action is performed
+        redoStack = []; 
     }
     stack.push(canvas.toDataURL());
 };
 
-// Restore canvas to a previous state
 const restoreState = (canvas, ctx, stack) => {
     if (stack.length) {
         const canvasPic = new Image();
@@ -208,26 +207,23 @@ const restoreState = (canvas, ctx, stack) => {
     }
 };
 
-// On pointer down, save the state for undo
 canvas.addEventListener('pointerdown', () => {
     saveState(undoStack, canvas);
     writingMode = true;
 });
 
-// Undo button functionality
 undoButton.addEventListener('click', () => {
     if (undoStack.length > 0) {
-        saveState(redoStack, canvas, true); // Save current state to redo stack
-        clearPad(); // Clear current canvas
-        restoreState(canvas, ctx, undoStack); // Restore the previous state
+        saveState(redoStack, canvas, true);
+        clearPad(); 
+        restoreState(canvas, ctx, undoStack); 
     }
 });
 
-// Redo button functionality
 redoButton.addEventListener('click', () => {
     if (redoStack.length > 0) {
-        saveState(undoStack, canvas, true); // Save current state to undo stack
-        clearPad(); // Clear current canvas
-        restoreState(canvas, ctx, redoStack); // Restore the next state from redo
+        saveState(undoStack, canvas, true);
+        clearPad(); 
+        restoreState(canvas, ctx, redoStack); 
     }
 });
