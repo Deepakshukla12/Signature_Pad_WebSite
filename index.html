@@ -10,49 +10,76 @@
 <body>
     <form class="signature-pad-form">
         <div class="signature-heading">
-            <h1>Signature Pad</h1>
-            <img src="digital.png" alt="###" height="100" width="200">
+            <h1 class="language" data-en="Signature Pad" data-hi="हस्ताक्षर पैड">Signature Pad</h1>
+            <img src="digital.png" alt="Signature Pad Logo" height="100" width="200">
         </div>
-        <p class="signature-info">
-           <b> Welcome to the Signature Pad! Transform your signature into art with our easy-to-use interface. Draw, customize colors and fonts, and download your creation as a PDF. Make your mark stand out—let your signature shine!
-        </b>
+        <div id="shuffle-button-container" style="text-align: center;">
+            <button id="shuffle-button" type="button" onclick="toggleLanguage()">स्विच टू हिंदी</button>
+        </div>
+        
+        <p class="signature-info language" data-en="Welcome to the Signature Pad! Transform your signature into art with our easy-to-use interface. Draw, customize colors and fonts, and download your creation as a PDF. Make your mark stand out—let your signature shine!" data-hi=  "हस्ताक्षर पैड में आपका स्वागत है! हमारे आसान इंटरफ़ेस के साथ अपने हस्ताक्षर को कला में बदलें। रंग और फ़ॉन्ट अनुकूलित करें, और अपनी कृति को PDF/Image के रूप में डाउनलोड करें। अपने हस्ताक्षर को विशिष्ट बनाएं—आपके हस्ताक्षर को चमकने दें!">
+            Welcome to the Signature Pad! Transform your signature into art with our easy-to-use interface. Draw, customize colors and fonts, and download your creation as a PDF/Image. Make your mark stand out—let your signature shine!
         </p>
+
         <div class="Annotation">
-            <strong class="annotation-label">Add Annotation:</strong>
-            <input type="text" id="textAnnotation" style="font-style: italic;" placeholder="Enter your name or anything to attach with your signature." />
+            <strong class="annotation-label language" data-en="Add Annotation:" data-hi="टिप्पणी जोड़ें:">Add Annotation:</strong>
+            <input type="text" id="textAnnotation" class="annotation-input" style="font-style: italic;" placeholder="Enter your name or anything to attach with your signature." />
         </div>
+        
         <div class="flex-container">
             <div class="signature-area">
-                <p><strong><h2>Please Sign Here</h2></strong></p>
-                <p style="margin-top: 0px; font-size: 14px; font-style: italic; color: #333;">
+                <p><strong><h2 class="language" data-en="Please Sign Here" data-hi="कृपया यहां हस्ताक्षर करें">Please Sign Here</h2></strong></p>
+                <p style="margin-top: 0px; font-size: 14px; font-style: italic; color: #333;" class="language" data-en="[Note: Please start your signature from the top-left corner of the pad and complete it in a single motion for the best results.]" data-hi="[नोट: श्रेष्ठ परिणामों के लिए कृपया हस्ताक्षर पैड के ऊपरी-बाएँ कोने से अपने हस्ताक्षर प्रारंभ करें और एक ही बार में पूरा करें।]">
                     [&nbsp;<b>Note:</b> Please start your signature from the top-left corner of the pad and complete it in a single motion for the best results.&nbsp;]
-                  </p>
+                </p>
                                                     
                 <canvas class="signature-pad"></canvas>
-                <p>
-                    <strong>Choose Ink Color:</strong>
-                    <input type="color" id="colorPicker" value="#000000">
-                </p>
-                <p class="undo-redo-buttons">
-                    <button class="undo-button" type="button">UNDO</button>
-                    <button class="redo-button" type="button">REDO</button>
-                </p>
                 
                 <p>
-                    <button class="submit-button" type="submit">SUBMIT</button>
+                    <strong class="language" data-en="Choose Ink Color:" data-hi="स्याही का रंग चुनें:">Choose Ink Color:</strong>
+                    <input type="color" id="colorPicker" value="#000000">
+                </p>
+                
+                <p class="undo-redo-buttons">
+                    <button class="undo-button language" type="button" data-en="UNDO" data-hi="हटाएं">UNDO</button>
+                    <button class="redo-button language" type="button" data-en="REDO" data-hi="वापस लाएं">REDO</button>
+                </p>
+
+                <p>
+                    <button class="submit-button language" type="submit" data-en="SUBMIT" data-hi="अपलोड करें">SUBMIT</button>
                 </p>
                 <p>
-                    <button class="clear-button" type="button">RESET</button>
+                    <button class="clear-button language" type="button" data-en="RESET" data-hi="रीसेट करें">RESET</button>
                 </p>
                 <p class="download-buttons">
-                    <button class="download-button" type="button">DOWNLOAD IMAGE</button>
-                    <button class="download-pdf-button" type="button">DOWNLOAD PDF</button>
+                    <button class="download-button language" type="button" data-en="DOWNLOAD IMAGE" data-hi="फोटो डाउनलोड करें">DOWNLOAD IMAGE</button>
+                    <button class="download-pdf-button language" type="button" data-en="DOWNLOAD PDF" data-hi="पीडीएफ डाउनलोड करें">DOWNLOAD PDF</button>
                 </p>
             </div>
         </div>
     </form>
+
+    <script>
+        const shuffleButton = document.getElementById('shuffle-button');
+        const annotationInput = document.getElementById('textAnnotation');
+        let currentLanguage = 'en'; 
+
+        shuffleButton.addEventListener('click', () => {
+            currentLanguage = currentLanguage === 'en' ? 'hi' : 'en'; 
+
+            const languageElements = document.querySelectorAll('.language');
+            languageElements.forEach(el => {
+                el.textContent = el.getAttribute(`data-${currentLanguage}`);
+            });
+
+            annotationInput.placeholder = currentLanguage === 'en' 
+                ? 'Enter your name or anything to attach with your signature.' 
+                : 'अपना नाम या हस्ताक्षर के साथ जोड़ने के लिए कुछ भी दर्ज करें।';
+
+            shuffleButton.textContent = currentLanguage === 'en' ? 'स्विच टू हिंदी' : 'Switch to English'; 
+        });
+    </script>
     
     <script src="app.js"></script>
-    
 </body>
 </html>
