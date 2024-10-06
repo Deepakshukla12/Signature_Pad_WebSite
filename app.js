@@ -193,6 +193,7 @@ window.addEventListener('resize', () => {
     ctx.drawImage(tempCanvas, 0, 0);
 });
 
+// Undo/Redo functionality
 const undoButton = document.querySelector('.undo-button');
 const redoButton = document.querySelector('.redo-button');
 
@@ -235,12 +236,14 @@ redoButton.addEventListener('click', () => {
         restoreState(canvas, ctx, redoStack); 
     }
 });
+
+// Scroll to the top and reset zoom on page load
 window.addEventListener('load', function() {
-    // Ensures the page is scrolled to the top after reload
+    // Scroll to the top
     setTimeout(function() {
         window.scrollTo(0, 0);
     }, 0);  // Using setTimeout to ensure scroll is triggered after page load
-    
+
     // Reset the page zoom to default (100%) on reload
     document.body.style.transform = 'scale(1)';
     document.body.style.transformOrigin = 'top left';
