@@ -237,14 +237,31 @@ redoButton.addEventListener('click', () => {
     }
 });
 
-// Scroll to the top and reset zoom on page load
 window.addEventListener('load', function() {
     // Scroll to the top
     setTimeout(function() {
         window.scrollTo(0, 0);
-    }, 2);  // Using setTimeout to ensure scroll is triggered after page load
+    }, 0);  // Using setTimeout to ensure scroll is triggered after page load
 
     // Reset the page zoom to default (100%) on reload
     document.body.style.transform = 'scale(1)';
     document.body.style.transformOrigin = 'top left';
+});
+
+// Ensure the canvas resizes correctly for mobile devices
+window.addEventListener('resize', () => {
+    // Use a temporary canvas to preserve the content when resizing
+    const tempCanvas = document.createElement('canvas');
+    const scaleFactor = window.innerWidth / canvas.offsetWidth; // Calculate scale factor
+    tempCanvas.width = canvas.width * scaleFactor;
+    tempCanvas.height = canvas.height * scaleFactor;
+
+    const tempCtx = tempCanvas.getContext('2d');
+    tempCtx.drawImage(canvas, 0, 0, canvas.width, canvas.height, 0, 0, tempCanvas.width, tempCanvas.height);
+
+    // Set the canvas dimensions to match the new size
+    canvas.width = window.innerWidth; // Adjust canvas width to full window width
+    canvas.height = (canvas.width * (300 / canvas.offsetWidth)); // Maintain aspect ratio
+
+    ctx.drawImage(tempCanvas, 0, 0, tempCanvas.width, tempCanvas.height, 0, 0, canvas.width, canvas.height);
 });
