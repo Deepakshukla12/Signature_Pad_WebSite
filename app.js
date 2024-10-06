@@ -242,7 +242,7 @@ window.addEventListener('load', function() {
     // Scroll to the top
     setTimeout(function() {
         window.scrollTo(0, 0);
-    }, 0);  // Using setTimeout to ensure scroll is triggered after page load
+    }, 2);  // Using setTimeout to ensure scroll is triggered after page load
 
     // Reset the page zoom to default (100%) on reload
     document.body.style.transform = 'scale(1)';
