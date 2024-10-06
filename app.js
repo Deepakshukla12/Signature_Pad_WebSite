@@ -235,11 +235,13 @@ redoButton.addEventListener('click', () => {
         restoreState(canvas, ctx, redoStack); 
     }
 });
-window.addEventListener('load', () => {
-    // Scroll to the top of the page after reload
-    window.scrollTo(0, 0);
-
-    // Reset page scaling to default size (1.0)
+window.addEventListener('load', function() {
+    // Ensures the page is scrolled to the top after reload
+    setTimeout(function() {
+        window.scrollTo(0, 0);
+    }, 0);  // Using setTimeout to ensure scroll is triggered after page load
+    
+    // Reset the page zoom to default (100%) on reload
     document.body.style.transform = 'scale(1)';
-    document.body.style.transformOrigin = 'top left'; // Ensures the scale starts from the top left
+    document.body.style.transformOrigin = 'top left';
 });
