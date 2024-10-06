@@ -17,6 +17,8 @@ colorPicker.addEventListener('input', (event) => {
 
 form.addEventListener('submit', (event) => {
     event.preventDefault();
+    
+    // Generate image from canvas and annotation
     const imageURL = canvas.toDataURL();
     const annotation = document.getElementById('textAnnotation').value;
 
@@ -43,6 +45,7 @@ form.addEventListener('submit', (event) => {
         });
     }, 100); // Delay to ensure DOM updates before scrolling
 });
+
 
 const clearPad = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
