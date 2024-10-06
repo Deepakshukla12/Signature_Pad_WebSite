@@ -79,6 +79,14 @@
             shuffleButton.textContent = currentLanguage === 'en' ? 'स्विच टू हिंदी' : 'Switch to English'; 
         });
     </script>
+    <script>
+    window.addEventListener('load', () => {
+    // Scroll to the top of the page after the page is fully loaded
+    window.scrollTo(0, 0);
+    // Reset the zoom level to 100%
+    document.body.style.zoom = '100%';
+});
+    </script>
     
     <script src="app.js"></script>
 </body>
