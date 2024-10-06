@@ -254,3 +254,7 @@ body {
     margin-top: 10px;
     margin-bottom: 5px;
 }
+body {
+    transform-origin: top left;
+    transition: transform 0.2s ease-out; /* Optional: Smooth transition for scaling */
+}
