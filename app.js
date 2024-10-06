@@ -35,14 +35,13 @@ form.addEventListener('submit', (event) => {
     combinedImage.style.display = 'block';
     form.appendChild(combinedImage);
 
-    // Scroll to the signature preview image with some offset
-    const yOffset = -100; // Adjust this value for a smooth scroll, set it as needed
-    const y = combinedImage.getBoundingClientRect().top + window.pageYOffset + yOffset;
-
-    window.scrollTo({
-        top: y,
-        behavior: 'smooth'
-    });
+    // Scroll down to the signature preview smoothly after it is appended
+    setTimeout(() => {
+        combinedImage.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start' // You can also use 'center' or 'end' based on preference
+        });
+    }, 100); // Delay to ensure DOM updates before scrolling
 });
 
 const clearPad = () => {
@@ -69,7 +68,7 @@ const handlePointerUp = () => {
 const handlePointerDown = (event) => {
     writingMode = true;
     const [positionX, positionY] = getTargetPosition(event);
-    ctx.lineWidth = 1.5; // Set line width for better visibility
+    ctx.lineWidth = 2; // Set line width for better visibility
     ctx.strokeStyle = selectedColor; 
     ctx.moveTo(positionX, positionY); 
     ctx.beginPath(); // Start a new path to avoid connecting lines
