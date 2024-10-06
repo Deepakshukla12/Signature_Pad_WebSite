@@ -235,3 +235,11 @@ redoButton.addEventListener('click', () => {
         restoreState(canvas, ctx, redoStack); 
     }
 });
+window.addEventListener('load', () => {
+    // Scroll to the top of the page after reload
+    window.scrollTo(0, 0);
+
+    // Reset page scaling to default size (1.0)
+    document.body.style.transform = 'scale(1)';
+    document.body.style.transformOrigin = 'top left'; // Ensures the scale starts from the top left
+});
