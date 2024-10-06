@@ -28,9 +28,6 @@ form.addEventListener('submit', (event) => {
     combinedCtx.drawImage(canvas, 0, 0);
     combinedCtx.fillStyle = 'black'; 
     combinedCtx.font = '16px Arial'; 
-    const textWidth = combinedCtx.measureText(annotation).width; 
-    const xPosition = (combinedCanvas.width - textWidth) / 2; 
-    const yPosition = canvas.height - 20; 
     combinedCtx.fillText(annotation, 10, canvas.height); 
 
     const combinedImage = document.createElement('img');
@@ -38,10 +35,12 @@ form.addEventListener('submit', (event) => {
     combinedImage.style.display = 'block';
     form.appendChild(combinedImage);
 
-    // Scroll the page down by 300px after submission
-    window.scrollBy({
-        top: 300, // You can adjust this value based on how much you want to scroll
-        left: 0,
+    // Scroll to the signature preview image with some offset
+    const yOffset = -100; // Adjust this value for a smooth scroll, set it as needed
+    const y = combinedImage.getBoundingClientRect().top + window.pageYOffset + yOffset;
+
+    window.scrollTo({
+        top: y,
         behavior: 'smooth'
     });
 });
