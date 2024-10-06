@@ -79,6 +79,16 @@
             shuffleButton.textContent = currentLanguage === 'en' ? 'स्विच टू हिंदी' : 'Switch to English'; 
         });
     </script>
+    <script>
+        // Scroll to the top on reload
+        window.addEventListener('load', function() {
+            window.scrollTo(0, 0);
+        });
+
+        window.addEventListener('beforeunload', function() {
+            window.scrollTo(0, 0);
+        });
+    </script>
     
     <script src="app.js"></script>
 </body>
