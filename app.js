@@ -37,6 +37,9 @@ form.addEventListener('submit', (event) => {
     combinedImage.src = combinedCanvas.toDataURL();
     combinedImage.style.display = 'block';
     form.appendChild(combinedImage);
+
+    // Automatically scroll down to the signature preview
+    combinedImage.scrollIntoView({ behavior: 'smooth' });
 });
 
 const clearPad = () => {
