@@ -38,8 +38,12 @@ form.addEventListener('submit', (event) => {
     combinedImage.style.display = 'block';
     form.appendChild(combinedImage);
 
-    // Automatically scroll down to the signature preview
-    combinedImage.scrollIntoView({ behavior: 'smooth' });
+    // Scroll the page down by 300px after submission
+    window.scrollBy({
+        top: 300, // You can adjust this value based on how much you want to scroll
+        left: 0,
+        behavior: 'smooth'
+    });
 });
 
 const clearPad = () => {
