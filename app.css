@@ -258,10 +258,3 @@ body {
     transform-origin: top left;
     transition: transform 0.2s ease-out; /* Optional: Smooth transition for scaling */
 }
-
-body {
-    transform: scale(0.75); /* Scale the site to 75% */
-    transform-origin: top left; /* Adjust the origin to scale from the top-left corner */
-    transition: transform 0.2s ease-out; /* Smooth transition for scaling */
-}
-
